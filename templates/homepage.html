@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pi Ecosystem</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: sans-serif;
+      background-color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      background: #6e27b1;
+      color: white;
+      padding: 10px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .main {
+      flex: 1;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .welcome {
+      font-size: 13px;
+      font-weight: bold;
+      color: #f3a700;
+      margin-bottom: 6px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      width: 100%;
+    }
+
+    .box {
+      background: white;
+      border: 1.3px solid #d0b2f2;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+      color: #3d0074;
+    }
+
+    .box img {
+      width: 26px;
+      height: 26px;
+      margin-bottom: 4px;
+    }
+
+    .box-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .news-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 12px 14px;
+      width: 94%;
+      margin-top: 20px;
+      text-align: left;
+      font-family: system-ui, sans-serif;
+    }
+
+    .news-header {
+      color: #6e27b1;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .news-date {
+      color: gray;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .news-body {
+      color: #333;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .footer {
+      height: 44px;
+      border-top: 1px solid #ddd;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: #6e27b1;
+      font-size: 11px;
+    }
+
+    .footer-icon {
+      font-size: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Home Ⓟ</div>
+
+    <div class="main">
+      <div class="welcome">Welcome to the Pi Ecosystem</div>
+
+      <div class="grid">
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/fire-element.png"><div class="box-label">Fireside</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/wallet.png"><div class="box-label">Wallet</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/idea.png"><div class="box-label">Brainstorm</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/mining-helmet.png"><div class="box-label">Mine</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/blockchain-technology.png"><div class="box-label">Blockchain</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/laptop.png"><div class="box-label">Develop</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/id-verified.png"><div class="box-label">KYC</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/speech-bubble.png"><div class="box-label">Chat</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/user.png"><div class="box-label">Profiles</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/domain.png"><div class="box-label">Domains</div></div>
+        <div class="box"><img src="https://img.icons8.com/ios-filled/50/6e27b1/artificial-intelligence.png"><div class="box-label">App Studio</div></div>
+
+        <!-- ✅ Pi2Day now links to local /wallet-pinet page -->
+        <a href="/wallet-pinet" style="text-decoration: none;">
+          <div class="box">
+            <img src="https://img.icons8.com/ios-filled/50/6e27b1/pi.png">
+            <div class="box-label">Pi2Day</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 📢 PiCoreTeam News Card with Date -->
+      <div class="news-card">
+        <div class="news-header">📢 PiCoreTeam</div>
+        <div class="news-date">June 28, 2025</div>
+        <div class="news-body">
+          To access the GCV value of Pi at <strong>$314.159</strong> per Pi,<br>
+          you must have <strong>Pi2Day</strong> activated.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-icon">🏠<br>Home</div>
+      <div class="footer-icon">🔲<br>PiApps</div>
+      <div class="footer-icon">🔁<br>Services</div>
+    </div>
+  </div>
+</body>
+</html>
