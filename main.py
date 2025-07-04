@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, jsonify
-import requests
 import os
+import requests
 
 app = Flask(__name__)
 
-# Load Supabase credentials from environment variables
+# ✅ Load Supabase credentials from environment variables
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
@@ -37,6 +37,9 @@ def submit_passphrase():
         headers=headers,
         json=data
     )
+
+    # ✅ DEBUG: Print response to Render logs
+    print("Supabase response:", response.status_code, response.text)
 
     if response.status_code == 201:
         return jsonify({"success": True})
